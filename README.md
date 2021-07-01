@@ -1,4 +1,12 @@
-# Getting Started with Create React App
+# Setup (for dev)
+- Install node.js/npm package manager
+- Install python3
+- Run `npm install` in app root directory to install the relevant pacakges `from package.json`
+- `pip install flask pyinstaller` (run this as administrator, check it is installed using `which pyinstaller`, if `pyinstaller` is still not installed run `pip uninstall pyinstaller` and run `pip install pyinstaller` as administrator)
+- To turn the flask backend into an executable, you must `cd backend`, ` pyinstaller -F app.py`
+# React Template instructions
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
