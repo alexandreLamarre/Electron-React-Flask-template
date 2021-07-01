@@ -4,6 +4,15 @@
 - Run `npm install` in app root directory to install the relevant pacakges `from package.json`
 - `pip install flask pyinstaller` (run this as administrator, check it is installed using `which pyinstaller`, if `pyinstaller` is still not installed run `pip uninstall pyinstaller` and run `pip install pyinstaller` as administrator)
 - To turn the flask backend into an executable, you must `cd backend`, ` pyinstaller -F app.py`
+
+# Running dev environment
+Once setup is complete:
+
+- run `npm start` within project directory
+- run `npm run electron` within project directory
+
+These will be combined in a single command when the issue with `concurrently` is figured out on my end.
+
 # React Template instructions
 
 ## Getting Started with Create React App
