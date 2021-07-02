@@ -9,7 +9,18 @@ let mainWindow; //need to keep a ref to the window object, or it will be collect
                 // by the garbage collector and closed.
 
 function createWindow(){
-    
+    //Enable CPS header for additional protection 
+    // against cross scripting attacks and data injection
+    const {session} = require('electron');
+    session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+        callback({
+          responseHeaders: {
+            ...details.responseHeaders,
+            'Content-Security-Policy': ['default-src \'self\' style-src \'unsafe-inline\'']
+          }
+        })
+      });
+
     // Create the frontend browser window.
     mainWindow = new BrowserWindow({
         width: 800, 
