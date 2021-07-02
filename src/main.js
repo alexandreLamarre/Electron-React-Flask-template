@@ -9,12 +9,14 @@ let mainWindow; //need to keep a ref to the window object, or it will be collect
                 // by the garbage collector and closed.
 
 function createWindow(){
-    // Create the browser window.
+    
+    // Create the frontend browser window.
     mainWindow = new BrowserWindow({
         width: 800, 
         height: 600,
         webPreferences: {
             nodeIntegration: true,
+            allowRunningInsecureContent : false,
         }
     });
 
@@ -29,31 +31,46 @@ function createWindow(){
     }
 
     // start flask backend
-    let backend;
-    backend = path.join(process.cwd(), 'backend/dist/app.exe'); //finds built app.py
-                                                                          // that was built using pyinstaller
-                                                                          // See README.
-    var execfile = require('child_process').execFile;
+    if(isDev){ // run the webapp using a .py file for dev
+        console.log("running")
+        var python = require('child_process').spawn(
+            'python', 
+            ['./backend/app.py']
+        );
+        python.stdout.on('data' , function(data){
+            console.log("data : ", data.toString('utf8'));
+        });
+        python.stderr.on('data', (data) => {
+            console.log(`stderr: ${data}`);
+        })
+    } else{ // in production we must run an exec file.
+        let backend;
+        backend = path.join(process.cwd(), 'backend/dist/app.exe'); //finds built app.py
+                                                                            // that was built using pyinstaller
+                                                                            // See README.
+        var execfile = require('child_process').execFile;
 
-    execfile(
-        backend,
-        {
-            windowsHide: true,
-        },
-        (err, stdout,stderr) => {
-            if(err){
-                console.log(err);
-            }
+        execfile(
+            backend,
+            {
+                windowsHide: true,
+            },
+            (err, stdout,stderr) => {
+                if(err){
+                    console.log(err);
+                }
 
-            if(stdout){
-                console.log(stdout);
-            }
+                if(stdout){
+                    console.log(stdout);
+                }
 
-            if(stderr){
-                console.log(stderr);
+                if(stderr){
+                    console.log(stderr);
+                }
             }
-        }
-    )
+        );
+    }
+
 
     mainWindow.on('closed', function (){
         mainWindow = null;
