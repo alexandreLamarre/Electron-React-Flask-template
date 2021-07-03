@@ -5,6 +5,7 @@
 - `pip install flask pyinstaller` (run this as administrator, check it is installed using `which pyinstaller`, if `pyinstaller` is still not installed run `pip uninstall pyinstaller` and run `pip install pyinstaller` as administrator)
 - To turn the flask backend into an executable, you must `cd backend`, ` pyinstaller -F app.py`
 
+<!--
 # Running dev environment
 Once setup is complete:
 
@@ -85,3 +86,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-->
