@@ -96,17 +96,20 @@ app.on('window-all-closed', () => {
     }
 
     // Killing app.exe (flask backend)
-    const {exec} = require('child_process');
+    if(!isDev){
+       const {exec} = require('child_process');
 
-    exec(`taskkill /f /t /im app.exe`, (err, stdout, stderr) => {
-        if(err){
-            console.log(err);
-            return;
-        }
+        exec(`taskkill /f /t /im app.exe`, (err, stdout, stderr) => {
+            if(err){
+                console.log(err);
+                return;
+            }
 
-        console.log(`stdout: ${stdout}`);
-        console.log(`stderr: ${stderr}`);
-    });
+            console.log(`stdout: ${stdout}`);
+            console.log(`stderr: ${stderr}`);
+        }); 
+    }
+    
 });
 
 app.on('activate', () => {
