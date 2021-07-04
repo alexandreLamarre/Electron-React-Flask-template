@@ -5,6 +5,9 @@
 - `pip install flask pyinstaller` (run this as administrator, check it is installed using `which pyinstaller`, if `pyinstaller` is still not installed run `pip uninstall pyinstaller` and run `pip install pyinstaller` as administrator)
 - To turn the flask backend into an executable, you must `cd backend`, ` pyinstaller -F app.py`
 
+
+# App use
+- To make use of secret tokens, we use `atom/node-keytar`, which on unix requires the installation of `libsecret`, see full documentation of `atom/node-keytar` [here](https://github.com/atom/node-keytar)
 <!--
 # Running dev environment
 Once setup is complete:
