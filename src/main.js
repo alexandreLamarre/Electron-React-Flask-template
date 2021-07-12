@@ -44,10 +44,27 @@ function createWindow(){
     // start flask backend
     if(isDev){ // run the webapp using a .py file for dev
         console.log("running")
-        var python = require('child_process').spawn(
+        try{ //try python first
+            var python = require('child_process').spawn(
             'python', 
             ['./backend/app.py']
-        );
+            );
+        }
+        catch(err){
+            console.log(err);
+            try{
+                python = require('child_process').spawn(
+                    'py',
+                    ['./backend/app.py']
+                );
+            }
+            catch(err2){
+                console.log("You done scewed up A-A-ron :", err2);
+                console.log("Please check required pip modules are installed on your machine.");
+            }
+        }
+        
+        
         python.stdout.on('data' , function(data){
             console.log("data : ", data.toString('utf8'));
         });
