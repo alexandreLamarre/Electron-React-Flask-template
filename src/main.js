@@ -11,15 +11,18 @@ let mainWindow; //need to keep a ref to the window object, or it will be collect
 function createWindow(){
     //Enable CPS header for additional protection 
     // against cross scripting attacks and data injection
-    const {session} = require('electron');
-    session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-        callback({
-          responseHeaders: {
-            ...details.responseHeaders,
-            'Content-Security-Policy': ['default-src \'self\' style-src \'unsafe-inline\'']
-          }
-        })
-      });
+
+    //TODO: re-enable this once I figure out how to whitelist http://localhost:5000/
+    // const {session} = require('electron');
+    // session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    //     callback({
+    //       responseHeaders: {
+    //         ...details.responseHeaders,
+    //         'Content-Security-Policy': ['default-src \'self\' style-src \'unsafe-inline\''],
+    //       }
+    //     }
+    //   )
+    // });
 
     // Create the frontend browser window.
     mainWindow = new BrowserWindow({
@@ -59,8 +62,16 @@ function createWindow(){
                 );
             }
             catch(err2){
-                console.log("You done scewed up A-A-ron :", err2);
-                console.log("Please check required pip modules are installed on your machine.");
+                    try{
+                        python = require('child_process').spawn(
+                        'python3', 
+                        ['./backend/app.py']
+                        );
+                    } 
+                    catch(err3){
+                    console.log("You done scewed up A-A-ron :", err, err2, err3);
+                    console.log("Please check required pip modules (e.g flask) are installed on your machine.");
+                    }
             }
         }
         
